@@ -19,11 +19,12 @@ func (interactor *NoticeInteractor) GetAllNotices() []models.Notice {
 	return interactor.NoticeRepository.Select()
 }
 func (interactor *NoticeInteractor) GetNotice(id string) models.Notice {
-	return interactor.NoticeRepository.SelectById(id)
+	task, _ := interactor.NoticeRepository.SelectById(id)
+	return task
 }
 func (interactor *NoticeInteractor) GetNoticeInfo(id string) models.Notice {
-	notice := interactor.NoticeRepository.GetNoticeInfo(id)
-	return notice
+	task := interactor.NoticeRepository.GetNoticeInfo(id)
+	return task
 }
 func (interactor *NoticeInteractor) Delete(id string) {
 	interactor.NoticeRepository.Delete(id)

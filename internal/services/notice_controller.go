@@ -6,7 +6,7 @@ import (
 	"Meow-fi/internal/models"
 	"Meow-fi/internal/services/usercase/controller"
 
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 )
 
 type NoticeController struct {
@@ -41,7 +41,7 @@ func (controller *NoticeController) GetNotice(id string) models.Notice {
 func (controller *NoticeController) GetNoticeInfo(id string) string {
 	notice := controller.Interactor.GetNoticeInfo(id)
 	str := ""
-	str += notice.Client.FIO + " created notice: " + notice.Containing
+	str += notice.Client.Login + " created notice: " + notice.Containing
 	return str
 }
 func (controller *NoticeController) Delete(id string) {

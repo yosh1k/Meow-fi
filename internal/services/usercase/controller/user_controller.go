@@ -13,10 +13,15 @@ func (interactor *UserInteractor) Add(u models.User) {
 	interactor.UserRepository.Store(u)
 }
 
-func (interactor *UserInteractor) GetInfo() []models.User {
+func (interactor *UserInteractor) GetAllUsers() []models.User {
 	return interactor.UserRepository.Select()
 }
-
+func (interactor *UserInteractor) GetUserByLogin(login string) (models.User, error) {
+	return interactor.UserRepository.SelectByLogin(login)
+}
+func (interactor *UserInteractor) GetUserById(id string) models.User {
+	return interactor.UserRepository.SelectById(id)
+}
 func (interactor *UserInteractor) Delete(id string) {
 	interactor.UserRepository.Delete(id)
 }

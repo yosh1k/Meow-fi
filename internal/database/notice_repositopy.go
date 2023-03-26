@@ -3,6 +3,8 @@ package database
 import (
 	"Meow-fi/internal/database/interfaces"
 	"Meow-fi/internal/models"
+
+	"gorm.io/gorm"
 )
 
 type NoticeRepository struct {
@@ -20,10 +22,16 @@ func (db *NoticeRepository) Select() []models.Notice {
 func (db *NoticeRepository) UpdateNotice(notice models.Notice) {
 	db.Update(notice)
 }
-func (db *NoticeRepository) SelectById(id string) models.Notice {
-	var task models.Notice
-	db.Where("id = ?", id).Find(&task)
-	return task
+func (db *NoticeRepository) SelectById(id string) (models.Notice, error) {
+	var notice models.Notice
+	res := db.Where("id = ?", id).Find(&notice)
+	if res.Error != nil {
+		return notice, res.Error
+	}
+	if res.RowsAffected == 0 {
+		return notice, gorm.ErrRecordNotFound
+	}
+	return notice, nil
 }
 func (db *NoticeRepository) GetNoticeInfo(id string) models.Notice {
 	var task models.Notice

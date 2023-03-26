@@ -9,7 +9,7 @@ type Notice struct {
 	Containing    string    `json:"containing"`
 	Category      int       `json:"category"`
 	Cost          int       `json:"cost"`
-	Client        User      `json:"client" gorm:"foreignKey:UserId"`
+	Client        User      `json:"client"`
 	TimeAvaliable time.Time `json:"time_avaliable"`
 	CreatedAt     time.Time
 }
