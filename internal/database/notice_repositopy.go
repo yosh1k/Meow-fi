@@ -24,7 +24,7 @@ func (db *NoticeRepository) UpdateNotice(notice models.Notice) {
 }
 func (db *NoticeRepository) SelectById(id string) (models.Notice, error) {
 	var notice models.Notice
-	res := db.Where("id = ?", id).Find(&notice)
+	res := db.Preload("Client").Where("id = ?", id).Find(&notice)
 	if res.Error != nil {
 		return notice, res.Error
 	}
